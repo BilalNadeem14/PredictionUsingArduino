@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>WebSocket Test</title>
+  <script>
+    const ws = new WebSocket('ws://localhost:8080');
+
+    ws.addEventListener('open', (event) => {
+      console.log('WebSocket connection opened:', event);
+    });
+
+    ws.addEventListener('message', (event) => {
+      console.log('WebSocket message received:', event.data);
+    });
+
+    ws.addEventListener('close', (event) => {
+      console.log('WebSocket connection closed:', event);
+    });
+
+    ws.addEventListener('error', (event) => {
+      console.error('WebSocket error:', event);
+    });
+
+    let url = 'http://localhost:8002/api/data';  // Replace with your Flask server URL
+    let data = { key1: 'value1', key2: 'value2' };  // Replace with your actual data
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log('Success:', data))
+      .catch((error) => console.error('Error:', error));
+  </script>
+</head>
+
+<body>
+  <h1>WebSocket Test</h1>
+</body>
+
+</html>
